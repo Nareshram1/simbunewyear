@@ -37,7 +37,7 @@ export default function Timer({targetDate:targetDate,serverTime:serverTime}:Prop
   
     return (
       <div>
-        
+        <div className="font-semibold text-2xl mb-5">Simbu New Year</div>
         <div>{timeLeft.days} days</div>
         <div>{timeLeft.hours} hours</div>
         <div>{timeLeft.minutes} minutes</div>

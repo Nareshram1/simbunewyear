@@ -7,6 +7,7 @@ export default function Home() {
   // console.log(serverTime)
   return (
     <main className="flex justify-center items-center h-screen">
+      
      <Timer targetDate={targetDate} serverTime={serverTime}/>
     </main>
   );
