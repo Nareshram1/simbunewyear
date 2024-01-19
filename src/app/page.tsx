@@ -1,7 +1,7 @@
 import Timer from "./timer";
 
 export default function Home() {
-  const targetDate = new Date('2024-01-20T23:59:59').getTime();
+  const targetDate = new Date('2024-02-01T00:00:00').getTime();
   const serverTime=new Date();
   // console.log(typeof(serverTime))
   // console.log(serverTime)
