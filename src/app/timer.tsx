@@ -6,7 +6,7 @@ type Props={
     serverTime:Date
 }
 export default function Timer({targetDate:targetDate,serverTime:serverTime}:Props) {
-    const [st,setSt]=useState(serverTime)
+    const [st,setSt]=useState<Date>(serverTime)
     const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
     useEffect(() => {
@@ -36,12 +36,14 @@ export default function Timer({targetDate:targetDate,serverTime:serverTime}:Prop
     }
   
     return (
-      <div>
-        <div className="font-semibold text-2xl mb-5">Simbu New Year</div>
-        <div>{timeLeft.days} days</div>
-        <div>{timeLeft.hours} hours</div>
-        <div>{timeLeft.minutes} minutes</div>
-        <div>{timeLeft.seconds} seconds</div>
+      <div className="flex flex-col w-[100%] md:gap-4   justify-center items-center">
+        <h1 className="font-semibold md:text-[5rem] text-2xl mb-5">Simbu New Year</h1>
+        <div className="flex gap-4 md:text-[2rem] justify-center items-center">
+        <h1>{timeLeft.days} days</h1>
+        <h1>{timeLeft.hours} hours</h1>
+        <h1>{timeLeft.minutes} minutes</h1>
+        <h1>{timeLeft.seconds} seconds</h1>
+        </div>
       </div>
     );
 }
