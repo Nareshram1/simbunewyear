@@ -6,7 +6,7 @@ type ResponseData = {
 }
  
 export async function GET(
-  req: NextApiRequest,
+  req: any,
   res: NextApiResponse<ResponseData>
 ) {
   return(
