@@ -25,8 +25,8 @@ export async function GET (
   res: NextApiResponse<ResponseData>
   ) {
     const random_item = (items: string | any[]) => items[Math.floor(Math.random() * items.length)];
+    setTimeout(() => {}, 5000);
     return(
-
     NextResponse.json({ quote: random_item(strQuotes) },{status: 200})
   )
 }
