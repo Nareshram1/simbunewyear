@@ -24,7 +24,7 @@ const getQuote = async()=>{
       console.log(data)
       setQuote(data.quoteObject.quote)
       console.log(quote)
-      let plants =  new Audio(data.quoteObject.audio)
+      let plants =  new Audio('/'+data.quoteObject.index+'.mp3')
         
       setLoading(false)
        await plants.play()
@@ -45,7 +45,7 @@ const getQuote = async()=>{
 
       const timer = setInterval(() => {
         setTimeLeft(calculateTimeLeft());
-        console.log(st);
+        // console.log(st);
         setSt(new Date())
       }, 1000);
   
@@ -88,7 +88,7 @@ const getQuote = async()=>{
         <svg className="w-8 h-8 text-gray-400 dark:text-gray-600 mb-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 14">
         <path d="M6 0H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v1a3 3 0 0 1-3 3H2a1 1 0 0 0 0 2h1a5.006 5.006 0 0 0 5-5V2a2 2 0 0 0-2-2Zm10 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v1a3 3 0 0 1-3 3h-1a1 1 0 0 0 0 2h1a5.006 5.006 0 0 0 5-5V2a2 2 0 0 0-2-2Z"/>
     </svg>
-        <h1 className="max-w-[80%] text-[1.5rem]">"{quote}"</h1>
+        <h1 className="relative max-w-[80%] text-[1.5rem] before:absolute before:inset-0 before:animate-typewriter before:bg-white after:absolute after:inset-0 after:w-[0.125em] ">"{quote}"</h1>
         <div className="flex  w-[80%] font-semibold text-[1.2rem]  justify-center mt-2">
           <h1>- The ATMan STR</h1>
         </div>
