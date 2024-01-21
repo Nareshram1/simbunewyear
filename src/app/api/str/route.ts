@@ -5,19 +5,19 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 export const dynamic = 'force-dynamic'
  
 type ResponseData = {
-  quote: string
+  quoteObject: string
 }
 
 
 
 
-const strQuotes: string[] = [
-  "Plants is also a living being if i'm not wrong. Scientifically. Ethuku nee vanthu plants ah vetti koldre? Athuvum living being tha thambi",
-  "Athu yen January 31 varumbodhu new year kondaduringa nu kekura matheri iruku",
-  "Kudikkadhavan kelu da kelvi",
-  "Yenda Ivlo Kelvi Kekuringale Oru Cow athavathu oru maadu kuzhainthai kaga vechu iruka kudiya paal ah antha thaai pasuva katti nalla karanthu paala vangi kudichutu barista layum okkanthu kelvi ah da kekuringa",
-  "Enna oru thought process, Enna oru thoora nokku paarvai , Unmaiyila great neengalam",
-  "Ennada Veetu Ulla Adikiringa, Anga Adicha Eduthukarom , Inga Adichan Eduthuko , Ennada Veetukulla Adikiringa",
+const strQuotes: Object[] = [
+  {quote:"Plants is also a living being if i'm not wrong. Scientifically. Ethuku nee vanthu plants ah vetti koldre? Athuvum living being tha thambi",audio:"https://videsaurvidssea.s3.ap-southeast-1.amazonaws.com/videos/uIvo4XGMQI8lnfoTJhdAgot8EkFQd9Pxf4JcmCKU.mp4"},
+  {quote:"Athu yen January 31 varumbodhu new year kondaduringa nu kekura matheri iruku",audio:"https://videsaurvidssea.s3.ap-southeast-1.amazonaws.com/videos/Kgqf94hxNqIvILeDtemS7iiSteWRYCKN5Ec6iGEf.mp4"},
+  {quote:"Kudikkadhavan kelu da kelvi",audio:"https://videsaurvidssea.s3.ap-southeast-1.amazonaws.com/videos/sFoFRreEtJGTIq7SKIijMpLtZ3AJmfoHRbVEsAWy.mp4"},
+  {quote:"Yenda Ivlo Kelvi Kekuringale Oru Cow athavathu oru maadu kuzhainthai kaga vechu iruka kudiya paal ah antha thaai pasuva katti nalla karanthu paala vangi kudichutu barista layum okkanthu kelvi ah da kekuringa",audio:"https://videsaurvidssea.s3.ap-southeast-1.amazonaws.com/videos/EwgAFCkFsYhwlEpAhZdUau3MOTGohACVvcHgzX46.mp4"},
+  {quote:"Enna oru thought process, Enna oru thoora nokku paarvai , Unmaiyila great neengalam",audio:"https://videsaurvidssea.s3.ap-southeast-1.amazonaws.com/videos/3ZXLHGq2DcCvCLUdiPvJV0fOgBUP7mfMmXg3TAG8.mp4"},
+  {quote:"Ennada Veetu Ulla Adikiringa, Anga Adicha Eduthukarom , Inga Adichan Eduthuko , Ennada Veetukulla Adikiringa",audio:"https://videsaurvidssea.s3.ap-southeast-1.amazonaws.com/videos/ppzaelu0PNpfysoy7Dz5BBlPOC8voD9XRaIBUMmv.mp4"},
 ];
  
 export async function GET (
@@ -27,6 +27,6 @@ export async function GET (
     const random_item = (items: string | any[]) => items[Math.floor(Math.random() * items.length)];
     setTimeout(() => {}, 5000);
     return(
-    NextResponse.json({ quote: random_item(strQuotes) },{status: 200})
+    NextResponse.json({ quoteObject: random_item(strQuotes) },{status: 200})
   )
 }
