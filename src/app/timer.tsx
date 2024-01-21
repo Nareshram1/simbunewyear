@@ -1,6 +1,7 @@
 'use client'
+import axios from "axios"
 import Image from "next/image"
-import { useState,useEffect,Suspense } from "react"
+import { useState,useEffect,Suspense, useRef } from "react"
 
 
 
@@ -14,13 +15,19 @@ export default function Timer({targetDate:targetDate,serverTime:serverTime}:Prop
     const [quote,setQuote]=useState<string>("")
 
     const [isLaoding,setLoading]=useState<boolean>(true)
-
+ 
 const getQuote = async()=>{
+ 
   setTimeout(async()=>{
     try{
-      const res:any = await fetch("/api/str", { cache: 'no-store' }).then((res)=>res.json()).then((res)=>setQuote(res.quote))
-      console.log(res)
+      const {data}:any = await axios("/api/str")
+      console.log(data)
+      setQuote(data.quoteObject.quote)
+      console.log(quote)
+      let plants =  new Audio(data.quoteObject.audio)
+        
       setLoading(false)
+       await plants.play()
     }catch(err){
       console.log(err)
     }
