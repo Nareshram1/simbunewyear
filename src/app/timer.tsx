@@ -10,16 +10,16 @@ export default function Timer({targetDate:targetDate,serverTime:serverTime}:Prop
     const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
     const [quote,setQuote]=useState<string>("")
 
+const getQuote = async()=>{
+  const res:any = await fetch("/api/str", { cache: 'no-store' }).then((res)=>res.json()).then((res)=>setQuote(res.quote))
+  console.log(res)
+}
     
   useEffect(()=>{ 
-    const res:any = fetch("/api/str").then((res)=>res.json()).then((res)=>setQuote(res.quote))
-
-      console.log(res)
+    getQuote()
   },[])
     
     useEffect(() => {
-
-      
 
       const timer = setInterval(() => {
         setTimeLeft(calculateTimeLeft());

@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server';
 import type { NextApiRequest, NextApiResponse } from 'next'
+
+//Crucial Line for Dynamic API Routes
+export const dynamic = 'force-dynamic'
  
 type ResponseData = {
   quote: string
@@ -7,7 +10,6 @@ type ResponseData = {
 
 
 
-const random_item = (items: string | any[]) => items[Math.floor(Math.random() * items.length)];
 
 const strQuotes: string[] = [
   "Plants is also a living being if i'm not wrong. Scientifically. Ethuku nee vanthu plants ah vetti koldre? Athuvum living being tha thambi",
@@ -21,8 +23,9 @@ const strQuotes: string[] = [
 export async function GET (
   req: any,
   res: NextApiResponse<ResponseData>
-) {
-  return(
+  ) {
+    const random_item = (items: string | any[]) => items[Math.floor(Math.random() * items.length)];
+    return(
 
     NextResponse.json({ quote: random_item(strQuotes) },{status: 200})
   )
