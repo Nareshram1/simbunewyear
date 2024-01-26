@@ -5,9 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "concurrently \"npm run start:next\" \"npm run start:server\"",
-    "start:next": "next start",
-    "start:server": "cd .. && cd server && npm install && nodemon server.ts",
+    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
