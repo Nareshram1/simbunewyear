@@ -2,7 +2,7 @@
 import axios from "axios"
 import Image from "next/image"
 import { useState,useEffect,Suspense, useRef } from "react"
-
+import Confetti from 'react-confetti'
 
 
 type Props={
@@ -11,11 +11,12 @@ type Props={
 }
 export default function Timer({targetDate:targetDate,serverTime:serverTime}:Props) {
     const [st,setSt]=useState<Date>(serverTime)
+    // const [end,setEnd]=useState(false)
     const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+    const endRef = useRef<boolean>(false);
     const [quote,setQuote]=useState<string>("")
 
     const [isLaoding,setLoading]=useState<boolean>(true)
- 
 const getQuote = async()=>{
  
   setTimeout(async()=>{
@@ -44,11 +45,14 @@ const getQuote = async()=>{
     useEffect(() => {
 
       const timer = setInterval(() => {
+        
         setTimeLeft(calculateTimeLeft());
-        // console.log(st);
         setSt(new Date())
+        if (timeLeft.days === 0 && timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0) {
+          // Modify the current property of the ref object to update its value without triggering a re-render
+          endRef.current = true;
+        }
       }, 1000);
-  
       return () => clearInterval(timer);
     }, [timeLeft]);
   
@@ -59,7 +63,7 @@ const getQuote = async()=>{
       const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-  
+
       return {
         days,
         hours,
@@ -67,7 +71,8 @@ const getQuote = async()=>{
         seconds,
       };
     }
-  
+    const width:number=1920
+    const height:number=1920
     return (
       <div>
 
@@ -77,16 +82,17 @@ const getQuote = async()=>{
           </div>
         ) :(
 
-
-
+          
           <div className="flex flex-col w-[100%] md:gap-4 justify-center items-center">
+          {endRef.current && <Confetti 
+            width={width}
+            height={height}
+            />}
           <h1 className="font-semibold md:text-[5rem] text-2xl mb-5">Simbu New Year</h1>
           {/* COUNTDOWN */}
+          {!endRef.current &&
+          
           <div className="flex gap-4 md:text-[2rem] justify-center items-center">
-          {/* <h1>{timeLeft.days} days</h1>
-          <h1>{timeLeft.hours} hours</h1>
-          <h1>{timeLeft.minutes} minutes</h1>
-          <h1>{timeLeft.seconds} seconds</h1> */}
           <div className="grid grid-flow-col gap-5 text-center auto-cols-max">
             <div className="flex flex-col">
               <span className="countdown font-mono text-5xl">
@@ -114,7 +120,7 @@ const getQuote = async()=>{
             </div>
           </div>
           </div>
-
+        }
           
         <div className="p-2 mt-5 flex flex-col items-center text-center font-medium">
         <svg className="w-8 h-8 text-gray-400 dark:text-gray-600 mb-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 14">
