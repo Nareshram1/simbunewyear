@@ -6,7 +6,6 @@ import {io,Socket} from 'socket.io-client'
 export default function Chat(){
     const [clientid, setClientid] = useState("")
     const [msg,setMsg]=useState("")
-    const[newmsg,setNewmsg]=useState("")
     const [socket, setSocket] = useState(null)
 
     const [messages, setMessages] = useState([]);
@@ -14,16 +13,14 @@ export default function Chat(){
         const soc=io("https://backend-chat-k5mx.onrender.com")
         
         soc.on('connect',()=>{
-            console.log(soc.id)
             setClientid(soc.id)
             setSocket(soc)
         })
         soc.on('rec-msg',(msg)=>{
             setMessages((prevMessages) => [
                 ...prevMessages,
-                { id: Date.now(), text: msg },
+                { id: clientid, text: msg },
               ]);
-              console.log("messages: ",messages)
         })
     },[])
     function sendMsg(){
@@ -31,7 +28,7 @@ export default function Chat(){
             socket.emit('send-msg',msg)
             setMessages((prevMessages) => [
                 ...prevMessages,
-                { id: Date.now(), text: msg },
+                { id: clientid, text: msg },
               ]);
         }
     }
@@ -45,7 +42,7 @@ export default function Chat(){
         {messages.map((message) => (
             <>
             {/* <div>{message.text}</div> */}
-            {message.id===clientid
+            {message.id==clientid
             ?(            <div className="chat chat-end">
             <div className="chat-bubble" key={message.id}>{message.text}</div>
             </div>)
@@ -53,9 +50,6 @@ export default function Chat(){
             <div className="chat-bubble" key={message.id}>{message.text}</div>
             </div>)
             }
-            <div className="chat chat-end">
-                    <div className="chat-bubble" key={message.id}>{message.text}</div>
-            </div>
             </>
           
         ))}
