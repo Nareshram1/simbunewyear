@@ -10,9 +10,8 @@ const ChatComponent = ({ messages, clientid }) => {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }
   }, [messages]);
-
   return (
-    <div style={{ height: '300px', overflowY: 'auto', border: '1px solid #ccc' }} ref={chatContainerRef}>
+    <div className='h-96 overflow-y-auto border-x-2 border-y-2 ml-4 mr-4 mt-4' ref={chatContainerRef}>
       {messages.map((message) => (
         <div key={message.id} className={`chat ${message.id === clientid ? 'chat-end' : 'chat-start'}`}>
           <div className="chat-bubble">{message.text}</div>

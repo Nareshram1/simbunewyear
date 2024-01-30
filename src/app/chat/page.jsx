@@ -12,7 +12,6 @@ export default function Chat(){
     const [totalOnline,setTotalOnline]=useState(0)
     useEffect(()=>{
         const soc=io("https://backend-chat-k5mx.onrender.com")
-        // 
         soc.on('connect',()=>{
             setClientid(soc.id)
             setSocket(soc)
