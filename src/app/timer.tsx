@@ -1,7 +1,7 @@
 'use client'
 import axios from "axios"
 import Image from "next/image"
-import { useState,useEffect,Suspense, useRef } from "react"
+import { useState,useEffect,useRef } from "react"
 import Confetti from 'react-confetti'
 
 
@@ -15,8 +15,8 @@ export default function Timer({targetDate:targetDate,serverTime:serverTime}:Prop
     const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
     const endRef = useRef<boolean>(false);
     const [quote,setQuote]=useState<string>("")
-
     const [isLaoding,setLoading]=useState<boolean>(true)
+
 const getQuote = async()=>{
  
   setTimeout(async()=>{
