@@ -11,7 +11,7 @@ const ChatComponent = ({ messages, clientid }) => {
     }
   }, [messages]);
   return (
-    <div className='h-96 overflow-y-auto border-x-2 border-y-2 ml-4 mr-4 mt-4' ref={chatContainerRef}>
+    <div className='h-[29rem] overflow-y-auto border-x-2 border-y-2 ml-4 mr-4 mt-4 font-semibold' ref={chatContainerRef}>
       {messages.map((message) => (
         <div key={message.id} className={`chat ${message.id === clientid ? 'chat-end' : 'chat-start'}`}>
           <div className="chat-bubble">{message.text}</div>
