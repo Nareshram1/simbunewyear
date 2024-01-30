@@ -32,6 +32,14 @@ export default function Chat(){
                 // You might want to perform some cleanup or update UI when disconnected
             });
     },[])
+    const handleKeyPress = (event) => {
+        // Check if the Enter key is pressed (key code 13)
+        if (event.key === 'Enter') {
+          // Call your function here
+          sendMsg();
+        }
+      };
+
     function sendMsg(){
         if (clientid!="" && msg!=""){
             socket.emit('send-msg',msg)
@@ -42,6 +50,8 @@ export default function Chat(){
             setMsg('')
         }
     }
+
+
 
     return(
         <div>
@@ -57,10 +67,8 @@ export default function Chat(){
 
         <ChatComponent  messages={messages} clientid={clientid}/> 
 
-        <input type="text" value={msg} className="input input-bordered input-primary w-[17rem] max-w-xs ml-6 mt-6 font-semibold" onChange={(event)=>setMsg(event.target.value)} placeholder="Go nuts..."/>
+        <input type="text" value={msg} className="input input-bordered input-primary w-[17rem] max-w-xs ml-6 mt-6 font-semibold" onChange={(event)=>setMsg(event.target.value)} onKeyDown={handleKeyPress} placeholder="Go nuts..."/>
         <button className="btn btn-circle ml-5 mt-4 hover:border-cyan-50 font-semibold" onClick={sendMsg}> <BiSolidSend size={22} className="flex align-center justify-center"/> </button>
-
-        {/* <h2>from server: {newmsg}</h2> */}
     </div>
     )
 }
