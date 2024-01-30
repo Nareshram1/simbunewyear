@@ -13,11 +13,18 @@ export default function Chat(){
     const [messages, setMessages] = useState([]);
     const [totalOnline,setTotalOnline]=useState(0)
     useEffect(()=>{
-        const soc=io("https://backend-chat-k5mx.onrender.com")
+        const soc=io("http://127.0.0.1:5000")
+        // initial connect
         soc.on('connect',()=>{
             setClientid(soc.id)
             setSocket(soc)
         })
+        // INIT message
+        soc.on("connected",(len)=>{
+            console.log("len :",len)
+            setTotalOnline(len)
+        })
+        // New Message receive
         soc.on('rec-msg',(msg,len)=>{
             setMessages((prevMessages) => [
                 ...prevMessages,
@@ -26,19 +33,12 @@ export default function Chat(){
               console.log(len)
               setTotalOnline(len)
         })
-            // Handle 'disconnect' event
-            soc.on('disconnect', () => {
-                console.log('Disconnected from the server');
-                // You might want to perform some cleanup or update UI when disconnected
-            });
+        // Handle 'disconnect' event
+        soc.on('disconnect', () => {
+            console.log('Disconnected from the server');
+            // You might want to perform some cleanup or update UI when disconnected
+        });
     },[])
-    const handleKeyPress = (event) => {
-        // Check if the Enter key is pressed (key code 13)
-        if (event.key === 'Enter') {
-          // Call your function here
-          sendMsg();
-        }
-      };
 
     function sendMsg(){
         if (clientid!="" && msg!=""){
@@ -50,8 +50,6 @@ export default function Chat(){
             setMsg('')
         }
     }
-
-
 
     return(
         <div>
@@ -67,7 +65,7 @@ export default function Chat(){
 
         <ChatComponent  messages={messages} clientid={clientid}/> 
 
-        <input type="text" value={msg} className="input input-bordered input-primary w-[17rem] max-w-xs ml-6 mt-6 font-semibold" onChange={(event)=>setMsg(event.target.value)} onKeyDown={handleKeyPress} placeholder="Go nuts..."/>
+        <input type="text" value={msg} className="input input-bordered input-primary w-[17rem] max-w-xs ml-6 mt-6 font-semibold" onChange={(event)=>setMsg(event.target.value)} onKeyDown={(event)=>{if(event.key==='Enter'){sendMsg();}}} placeholder="Go nuts..."/>
         <button className="btn btn-circle ml-5 mt-4 hover:border-cyan-50 font-semibold" onClick={sendMsg}> <BiSolidSend size={22} className="flex align-center justify-center"/> </button>
     </div>
     )
