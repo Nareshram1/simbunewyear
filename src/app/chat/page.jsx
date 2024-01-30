@@ -3,6 +3,8 @@
 import { useState,useEffect } from "react"
 import {io} from 'socket.io-client'
 import ChatComponent from './Chat'
+import { BiSolidSend } from "react-icons/bi";
+
 export default function Chat(){
     const [clientid, setClientid] = useState("")
     const [msg,setMsg]=useState("")
@@ -55,8 +57,8 @@ export default function Chat(){
 
         <ChatComponent  messages={messages} clientid={clientid}/> 
 
-        <input type="text" value={msg} className="input input-bordered input-primary w-full max-w-xs ml-6 mt-6 font-semibold" onChange={(event)=>setMsg(event.target.value)} placeholder="Go nuts"/>
-        <button className="btn btn-circle ml-5 mt-2 hover:border-cyan-50 font-semibold" onClick={sendMsg}>Send</button>
+        <input type="text" value={msg} className="input input-bordered input-primary w-[17rem] max-w-xs ml-6 mt-6 font-semibold" onChange={(event)=>setMsg(event.target.value)} placeholder="Go nuts..."/>
+        <button className="btn btn-circle ml-5 mt-4 hover:border-cyan-50 font-semibold" onClick={sendMsg}> <BiSolidSend size={22} className="flex align-center justify-center"/> </button>
 
         {/* <h2>from server: {newmsg}</h2> */}
     </div>

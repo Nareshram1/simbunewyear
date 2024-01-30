@@ -3,7 +3,6 @@ import axios from "axios";
 import Image from "next/image";
 import { useState, useEffect, useRef ,useMemo} from "react";
 import Confetti from 'react-confetti';
-
 type Props = {
   targetDate: number;
   serverTime: Date;
@@ -12,7 +11,7 @@ type Props = {
 const Timer = ({ targetDate, serverTime }: Props) => {
 
   const [st, setSt] = useState<Date>(serverTime);
-  
+
   const calculateTimeLeft = useMemo(() => {
     return () => {
       const difference = targetDate - st.getTime();
@@ -70,6 +69,7 @@ const Timer = ({ targetDate, serverTime }: Props) => {
   const height: number = 1920;
 
   return (
+      <>
     <div>
       {isLoading ? (
         <div className="animate-bounce mt-10">
@@ -101,8 +101,12 @@ const Timer = ({ targetDate, serverTime }: Props) => {
             </div>
           </div>
         </div>
+
+        
       )}
     </div>
+
+                </>
   );
 };
 

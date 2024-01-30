@@ -1,4 +1,7 @@
 import Timer from "./timer";
+import Link from 'next/link';
+import { CiChat1 } from "react-icons/ci";
+
 export default function Home() {
   const targetDate = new Date('2024-01-31T24:00:00').getTime();
   const serverTime=new Date();
@@ -15,7 +18,15 @@ export default function Home() {
       
      <Timer targetDate={targetDate} serverTime={serverTime}/>
      {/* <img src="/simbu.png"></img> */}
+     
     </main>
+    <footer>
+    <Link href='/chat'>
+            <div className="absolute bottom-4 right-4 w-14 align-middle justify-center hover:scale-110">
+              <CiChat1 size={45} />
+            </div>
+            </Link>
+    </footer>
     </div>
   );
 }
