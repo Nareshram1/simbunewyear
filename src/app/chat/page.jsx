@@ -30,6 +30,7 @@ export default function Chat(){
                 ...prevMessages,
                 { id: clientid, text: msg },
               ]);
+            setMsg('')
         }
     }
 
@@ -55,7 +56,7 @@ export default function Chat(){
         ))}
       </div>
 
-        <input type="text" className="input input-bordered input-primary w-full max-w-xs ml-6 mt-6" onChange={(event)=>setMsg(event.target.value)}/>
+        <input type="text" value={msg} className="input input-bordered input-primary w-full max-w-xs ml-6 mt-6" onChange={(event)=>setMsg(event.target.value)} />
         <button className="btn btn-circle ml-4 hover:border-cyan-50" onClick={sendMsg}>Send</button>
 
         {/* <h2>from server: {newmsg}</h2> */}
