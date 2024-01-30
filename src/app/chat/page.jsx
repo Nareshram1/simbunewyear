@@ -13,7 +13,7 @@ export default function Chat(){
     const [messages, setMessages] = useState([]);
     const [totalOnline,setTotalOnline]=useState(0)
     useEffect(()=>{
-        const soc=io("http://127.0.0.1:5000")
+        const soc=io("https://backend-chat-k5mx.onrender.com")
         // initial connect
         soc.on('connect',()=>{
             setClientid(soc.id)
