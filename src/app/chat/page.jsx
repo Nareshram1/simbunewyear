@@ -1,7 +1,7 @@
 'use client'
 
 import { useState,useEffect } from "react"
-import {io,Socket} from 'socket.io-client'
+import {io} from 'socket.io-client'
 import ChatComponent from './Chat'
 export default function Chat(){
     const [clientid, setClientid] = useState("")
