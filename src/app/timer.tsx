@@ -3,6 +3,7 @@ import axios from "axios";
 import Image from "next/image";
 import { useState, useEffect, useRef ,useMemo} from "react";
 import Confetti from 'react-confetti';
+import moment from 'moment-timezone'; // Import moment-timezone
 // props typea
 type Props = {
   targetDate: number;
@@ -61,16 +62,14 @@ const Timer = ({ targetDate, serverTime }: Props) => {
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft());
-      // Get the current date in UTC
-      // Get the current date in UTC
-      const currentDateUTC = new Date();
+      // Get the current date in the user's browser time zone
+      const userLocalDate = moment();
 
-      // Create a date object in the desired time zone
-      const targetTimeZone = 'Asia/Kolkata'; // Adjust as needed
-      const zonedDate = new Date(currentDateUTC.toLocaleString('en-US', { timeZone: targetTimeZone }));
+      // Convert to IST using moment.tz()
+      const istDate = userLocalDate.tz('Asia/Kolkata');
 
-      // Set the state with the zoned date
-      setSt(zonedDate);
+      // Set the state with the IST date (as a moment object)
+      setSt(istDate.toDate());
       if (timeLeft.days === 0 && timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0) {
         endRef.current = true;
       }
