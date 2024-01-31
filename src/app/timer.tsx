@@ -76,7 +76,7 @@ const Timer = ({ targetDate, serverTime }: Props) => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [timeLeft,calculateTimeLeft,setTimeLeft]);
+  }, [timeLeft]);
 
   // Confetti requirements
   const width: number = 1920;
