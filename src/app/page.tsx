@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { CiChat1 } from "react-icons/ci";
 
 export default function Home() {
-  const targetDate = new Date('2024-01-31T24:00:00').getTime();
+  const targetDate = new Date('2024-01-31T2:59:59').getTime();
   const serverTime=new Date();
   return (
     <div>
