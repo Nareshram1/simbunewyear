@@ -6,7 +6,7 @@ import Confetti from 'react-confetti';
 import moment from 'moment-timezone'; // Import moment-timezone
 // props typea
 type Props = {
-  targetDate: number;
+  targetDate: Date;
   serverTime: Date;
 };
 
@@ -16,7 +16,7 @@ const Timer = ({ targetDate, serverTime }: Props) => {
   // Memoization applied to reduce  unnecessary re-renders.
   const calculateTimeLeft = useMemo(() => {
     return () => {
-      const difference = targetDate - moment().toDate().getTime();
+      const difference = targetDate.getTime() - moment().toDate().getTime();
       console.log("diff: ",difference)
       const days = Math.floor(difference / (1000 * 60 * 60 * 24));
       const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -30,7 +30,7 @@ const Timer = ({ targetDate, serverTime }: Props) => {
         seconds,
       };
     };
-  }, [targetDate, st]);
+  }, [st]);
   // States for  the timer component.
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
   const endRef = useRef<boolean>(false);
