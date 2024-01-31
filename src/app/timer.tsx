@@ -66,7 +66,7 @@ const Timer = ({ targetDate, serverTime }: Props) => {
 
       // Create a date object in the desired time zone
       const targetTimeZone = 'Asia/Kolkata'; // Adjust as needed
-      const zonedDate = new Date(currentDateUTC.toLocaleString('en-US', { timeZone: targetTimeZone }));
+      const zonedDate = new Date(currentDateUTC.toLocaleString('en-IN', { timeZone: targetTimeZone }));
 
       // Set the state with the zoned date
       setSt(zonedDate);
