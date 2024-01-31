@@ -50,15 +50,26 @@ const Timer = ({ targetDate, serverTime }: Props) => {
 
   // Loading  of quote when the countdown is over.
   useEffect(() => {
-    setLoading(true);
-    getQuote();
+    setTimeout(() => {
+      getQuote();
+      setLoading(false);
+    }, 2000);
+
   }, []);
 
   // Updating the state with time left every second.
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft());
-      setSt(new Date());
+      // Get the current date in UTC
+      const currentDateUTC = new Date();
+
+      // Create a date object in the desired time zone
+      const targetTimeZone = 'Asia/Kolkata'; // Adjust as needed
+      const zonedDate = new Date(currentDateUTC.toLocaleString('en-US', { timeZone: targetTimeZone }));
+
+      // Set the state with the zoned date
+      setSt(zonedDate);
       if (timeLeft.days === 0 && timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0) {
         endRef.current = true;
       }
