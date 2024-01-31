@@ -6,7 +6,7 @@ import Confetti from 'react-confetti';
 import moment from 'moment-timezone'; // Import moment-timezone
 // props typea
 type Props = {
-  targetDate: Date;
+  targetDate: number;
   serverTime: Date;
 };
 
@@ -16,7 +16,7 @@ const Timer = ({ targetDate, serverTime }: Props) => {
   // Memoization applied to reduce  unnecessary re-renders.
   const calculateTimeLeft = useMemo(() => {
     return () => {
-      const difference = targetDate.getTime() - moment().toDate().getTime();
+      const difference = targetDate - st.getTime();
       console.log("diff: ",difference)
       const days = Math.floor(difference / (1000 * 60 * 60 * 24));
       const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -65,7 +65,7 @@ const Timer = ({ targetDate, serverTime }: Props) => {
       setTimeLeft(calculateTimeLeft());
       // Get the current date in the user's browser time zone
       const userLocalDate = moment();
-      console.log("local: ",userLocalDate)
+      console.log("local: ",userLocalDate.toDate())
       // Convert to IST using moment.tz()
       // const istDate = userLocalDate.tz('Asia/Kolkata');
       // console.log("IST Date :",istDate)
