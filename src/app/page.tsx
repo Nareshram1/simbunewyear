@@ -1,7 +1,6 @@
 import Timer from "./timer";
 import Link from 'next/link';
 import { CiChat1 } from "react-icons/ci";
-import {  utcToZonedTime } from 'date-fns-tz';
 import moment from 'moment-timezone';
 export default function Home() {
   const targetDate = new Date('2024-01-31T24:00:00').getTime();
@@ -9,10 +8,6 @@ export default function Home() {
   const now=moment()
   const nowmod=now.tz('Asia/Kolkata')
   const zonedDate=nowmod.toDate()
-  console.log("zoned: ",zonedDate)
-  // const serverTime=new Date();
-  // const timeZone = 'Asia/Kolkata';
-  // const zonedDate = utcToZonedTime(serverTime, timeZone);
   return (
     <div>
       <div className="flex mt-3 mr-3 justify-end">

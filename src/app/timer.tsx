@@ -18,7 +18,10 @@ const Timer = ({ targetDate, serverTime }: Props) => {
   const calculateTimeLeft = useMemo(() => {
     return () => {
       const difference = new Date('2024-01-31T24:00:00').getTime() - moment().toDate().getTime();
-      console.log("diff: ",difference)
+      // console.log("diff: ",difference)
+      if (difference < 0) {
+        endRef.current=true;
+      }
       const days = Math.floor(difference / (1000 * 60 * 60 * 24));
       const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
@@ -33,8 +36,8 @@ const Timer = ({ targetDate, serverTime }: Props) => {
     };
   }, []);
   // States for  the timer component.
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
   const endRef = useRef<boolean>(false);
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
   const [quote, setQuote] = useState<string>("");
   const [isLoading, setLoading] = useState<boolean>(true);
 
@@ -64,14 +67,6 @@ const Timer = ({ targetDate, serverTime }: Props) => {
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft());
-      // Get the current date in the user's browser time zone
-      const userLocalDate = moment();
-      console.log("local: ",userLocalDate.toDate())
-      // Convert to IST using moment.tz()
-      // const istDate = userLocalDate.tz('Asia/Kolkata');
-      // console.log("IST Date :",istDate)
-      // Set the state with the IST date (as a moment object)
-      // setSt(moment().toDate());
       if (timeLeft.days === 0 && timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0) {
         endRef.current = true;
       }
