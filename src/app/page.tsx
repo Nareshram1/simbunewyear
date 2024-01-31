@@ -1,10 +1,12 @@
 import Timer from "./timer";
 import Link from 'next/link';
 import { CiChat1 } from "react-icons/ci";
-
+import {  utcToZonedTime } from 'date-fns-tz';
 export default function Home() {
   const targetDate = new Date('2024-01-31T24:00:00').getTime();
   const serverTime=new Date();
+  const timeZone = 'Asia/Kolkata';
+  const zonedDate = utcToZonedTime(serverTime, timeZone);
   return (
     <div>
       <div className="flex mt-3 mr-3 justify-end">
@@ -16,7 +18,7 @@ export default function Home() {
       </div>
     <main className="flex justify-center items-center h-screen">
       
-     <Timer targetDate={targetDate} serverTime={serverTime}/>
+     <Timer targetDate={targetDate} serverTime={zonedDate}/>
      {/* <img src="/simbu.png"></img> */}
      
     </main>
