@@ -62,11 +62,12 @@ const Timer = ({ targetDate, serverTime }: Props) => {
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft());
       // Get the current date in UTC
+      // Get the current date in UTC
       const currentDateUTC = new Date();
 
       // Create a date object in the desired time zone
       const targetTimeZone = 'Asia/Kolkata'; // Adjust as needed
-      const zonedDate = new Date(currentDateUTC.toLocaleString('en-IN', { timeZone: targetTimeZone }));
+      const zonedDate = new Date(currentDateUTC.toLocaleString('en-US', { timeZone: targetTimeZone }));
 
       // Set the state with the zoned date
       setSt(zonedDate);
@@ -76,7 +77,7 @@ const Timer = ({ targetDate, serverTime }: Props) => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [timeLeft]);
+  }, [timeLeft,calculateTimeLeft,setTimeLeft]);
 
   // Confetti requirements
   const width: number = 1920;
