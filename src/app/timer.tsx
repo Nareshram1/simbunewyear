@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState, useEffect, useRef ,useMemo} from "react";
 import Confetti from 'react-confetti';
 import moment from 'moment-timezone'; // Import moment-timezone
+import { difference } from "next/dist/build/utils";
 // props typea
 type Props = {
   targetDate: number;
@@ -12,11 +13,11 @@ type Props = {
 
 const Timer = ({ targetDate, serverTime }: Props) => {
 
-  const [st, setSt] = useState<Date>(serverTime);
+  // const [st, setSt] = useState<Date>(serverTime);
   // Memoization applied to reduce  unnecessary re-renders.
   const calculateTimeLeft = useMemo(() => {
     return () => {
-      const difference = targetDate - st.getTime();
+      const difference = new Date('2024-01-31T24:00:00').getTime() - moment().toDate().getTime();
       console.log("diff: ",difference)
       const days = Math.floor(difference / (1000 * 60 * 60 * 24));
       const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -30,7 +31,7 @@ const Timer = ({ targetDate, serverTime }: Props) => {
         seconds,
       };
     };
-  }, [st]);
+  }, []);
   // States for  the timer component.
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
   const endRef = useRef<boolean>(false);
@@ -70,7 +71,7 @@ const Timer = ({ targetDate, serverTime }: Props) => {
       // const istDate = userLocalDate.tz('Asia/Kolkata');
       // console.log("IST Date :",istDate)
       // Set the state with the IST date (as a moment object)
-      setSt(userLocalDate.toDate());
+      // setSt(moment().toDate());
       if (timeLeft.days === 0 && timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0) {
         endRef.current = true;
       }
