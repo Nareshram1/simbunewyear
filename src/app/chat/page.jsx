@@ -61,7 +61,7 @@ export default function Chat(){
         </label>
         </div>
         {socket?(<h4 className="ml-4 font-semibold text-green-500">Your online</h4>):(<h4 className="ml-4 font-semibold text-red-500">Your offline</h4>)}
-        <h1 className="ml-4 font-semibold">Total Online  Users - {totalOnline}</h1>
+        {/* <h1 className="ml-4 font-semibold">Total Online  Users - {totalOnline}</h1> */}
 
         <ChatComponent  messages={messages} clientid={clientid}/> 
 
