@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { CiChat1 } from "react-icons/ci";
 import moment from 'moment-timezone';
 export default function Home() {
-  const targetDate = new Date('2024-01-31T24:00:00').getTime();
+  const targetDate = new Date('2026-01-31T24:00:00').getTime();
 
   const now=moment()
   const nowmod=now.tz('Asia/Kolkata')
