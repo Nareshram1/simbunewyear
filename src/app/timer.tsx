@@ -17,7 +17,7 @@ const Timer = ({ targetDate, serverTime }: Props) => {
   // Memoization applied to reduce  unnecessary re-renders.
   const calculateTimeLeft = useMemo(() => {
     return () => {
-      const difference = new Date('2025-01-31T24:00:00').getTime() - moment().toDate().getTime();
+      const difference = new Date('2026-01-31T24:00:00').getTime() - moment().toDate().getTime();
       // console.log("diff: ",difference)
       if (difference < 0) {
         endRef.current=true;
