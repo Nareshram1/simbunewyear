@@ -23,13 +23,13 @@ export default function Home() {
      {/* <img src="/simbu.png"></img> */}
      
     </main>
-    <footer>
+    {/* <footer>
     <Link href='/chat'>
             <div className="absolute bottom-4 right-4 w-14 align-middle justify-center hover:scale-110">
               <CiChat1 size={45} />
             </div>
             </Link>
-    </footer>
+    </footer> */}
     </div>
   );
 }

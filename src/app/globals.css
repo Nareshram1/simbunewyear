@@ -2,3 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+.visualizer-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 20px;
+}
+
+.bar {
+  width: 4px;
+  background: #eab308; /* yellow-500 */
+  animation: equalize 1s ease-in-out infinite;
+}
+
+@keyframes equalize {
+  0% { height: 5px; }
+  50% { height: 20px; }
+  100% { height: 5px; }
+}
+
+/* Vary the animation speed for a realistic look */
+.bar:nth-child(2) { animation-duration: 0.8s; }
+.bar:nth-child(3) { animation-duration: 1.2s; }
+.bar:nth-child(4) { animation-duration: 0.9s; }

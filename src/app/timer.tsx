@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState, useEffect, useRef ,useMemo} from "react";
 import Confetti from 'react-confetti';
 import moment from 'moment-timezone'; // Import moment-timezone
-import { difference } from "next/dist/build/utils";
+
 // props typea
 type Props = {
   targetDate: number;
@@ -15,26 +15,43 @@ const Timer = ({ targetDate, serverTime }: Props) => {
 
   // const [st, setSt] = useState<Date>(serverTime);
   // Memoization applied to reduce  unnecessary re-renders.
-  const calculateTimeLeft = useMemo(() => {
-    return () => {
-      const difference = new Date('2026-01-31T24:00:00').getTime() - moment().toDate().getTime();
-      // console.log("diff: ",difference)
-      if (difference < 0) {
-        endRef.current=true;
-      }
-      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+const calculateTimeLeft = useMemo(() => {
+  return () => {
+    const now = moment().tz('Asia/Kolkata');
+    const currentYear = now.year();
+    
+    // The big day: Jan 31st of the current year
+    const targetThisYear = moment.tz(`${currentYear}-01-31 23:59:59`, 'Asia/Kolkata');
+    
+    // The reset day: Feb 2nd of the current year
+    const resetDate = moment.tz(`${currentYear}-02-02 00:00:00`, 'Asia/Kolkata');
 
-      return {
-        days,
-        hours,
-        minutes,
-        seconds,
-      };
+    let target;
+
+    if (now.isBefore(targetThisYear)) {
+      // It's before Jan 31: Count down to Jan 31 this year
+      target = targetThisYear;
+    } else if (now.isBefore(resetDate)) {
+      // It's between Jan 31 and Feb 2: Show "Finished" / Confetti state
+      endRef.current = true;
+      return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+    } else {
+      // It's after Feb 2: Count down to Jan 31 of NEXT year
+      target = moment.tz(`${currentYear + 1}-01-31 23:59:59`, 'Asia/Kolkata');
+      endRef.current = false; // Ensure we are back in countdown mode
+    }
+
+    const difference = target.diff(now);
+    const duration = moment.duration(difference);
+
+    return {
+      days: Math.floor(duration.asDays()),
+      hours: duration.hours(),
+      minutes: duration.minutes(),
+      seconds: duration.seconds(),
     };
-  }, []);
+  };
+}, []);
   // States for  the timer component.
   const endRef = useRef<boolean>(false);
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
@@ -91,7 +108,7 @@ const Timer = ({ targetDate, serverTime }: Props) => {
       ) : (
         <div className="flex flex-col w-[100%] md:gap-4 justify-center items-center">
           {endRef.current && <Confetti width={width} height={height} />}
-          <h1 className="font-semibold md:text-[5rem] text-2xl mb-5">Simbu New Year</h1>
+          <h1 className="font-semibold md:text-[5rem] text-2xl mb-5">STR NEW YEAR</h1>
           
           {/* REF to optimize rendering */}
           {!endRef.current && (
